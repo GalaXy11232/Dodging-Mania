@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq8lb1egi40j1"]
+
+[ext_resource type="Texture2D" uid="uid://5bx0lcbyqr25" path="res://icon.svg" id="1_d72pw"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d72pw"]
+radius = 15.0
+height = 600.0
+
+[node name="WideBody" type="StaticBody2D" groups=["damage"]]
+collision_layer = 2
+collision_mask = 2
+metadata/damage_points = 40.0
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(1.71661e-05, 0)
+scale = Vector2(4.6875, 0.234375)
+texture = ExtResource("1_d72pw")
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="HitBox"]
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_d72pw")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+rotation = -1.57079
+shape = SubResource("CapsuleShape2D_d72pw")

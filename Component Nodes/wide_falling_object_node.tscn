@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://tr6r6mj6e056"]
+
+[ext_resource type="Script" uid="uid://dynnripqx2a4v" path="res://Component Nodes/wide_falling_body.gd" id="1_6gait"]
+
+[node name="WideFallingObject Node" type="Node"]
+script = ExtResource("1_6gait")
+
+[connection signal="spawn_body" from="." to="." method="_on_spawn_body"]

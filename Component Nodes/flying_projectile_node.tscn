@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://3w0c8qdvhod5"]
+
+[ext_resource type="Script" uid="uid://bocgwoqhibrxe" path="res://Component Nodes/flying_projectile_node.gd" id="1_usjwi"]
+
+[node name="FlyingProjectile Node" type="Node"]
+script = ExtResource("1_usjwi")
+
+[connection signal="spawn_projectile" from="." to="." method="_on_spawn_projectile"]

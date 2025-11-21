@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cbog8s01wu5gj"
+path="res://.godot/imported/spear appear.mp3-71309a23f5226898609d7706d8e407ef.mp3str"
+
+[deps]
+
+source_file="res://Sounds/spear appear.mp3"
+dest_files=["res://.godot/imported/spear appear.mp3-71309a23f5226898609d7706d8e407ef.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

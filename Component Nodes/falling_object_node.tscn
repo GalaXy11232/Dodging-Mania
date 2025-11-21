@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgmu7de0qursl"]
+
+[ext_resource type="Script" uid="uid://d2j4hj7ha64nv" path="res://Component Nodes/falling_object_node.gd" id="1_dd0g1"]
+
+[node name="FallingObject Node" type="Node"]
+script = ExtResource("1_dd0g1")
+
+[connection signal="setup_sprite" from="." to="." method="_on_setup_sprite"]
+[connection signal="spawn_body" from="." to="." method="_on_spawn_body"]

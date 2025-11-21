@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://be13ddx2n5gu2"]
+
+[ext_resource type="Texture2D" uid="uid://dvd15nya0filq" path="res://Images/PixelApple.png" id="1_5c0c6"]
+[ext_resource type="Script" uid="uid://dpbxoywafxf2n" path="res://Main Scene/Heal Nodes/apple.gd" id="1_7qjge"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7qjge"]
+radius = 30.0
+
+[node name="Apple" type="StaticBody2D" groups=["heal"]]
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_7qjge")
+metadata/heal_points = 10.0
+metadata/lifespan = 10.0
+
+[node name="HitBox" type="Area2D" parent="."]
+
+[node name="Collision" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("CircleShape2D_7qjge")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7qjge")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+position = Vector2(6.04232e-05, -6.77371)
+rotation = -6.28318
+scale = Vector2(0.246021, 0.240461)
+texture = ExtResource("1_5c0c6")
