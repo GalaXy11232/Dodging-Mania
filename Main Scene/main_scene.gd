@@ -5,6 +5,8 @@ extends Node2D
 @onready var camera: Camera2D = $Camera
 @onready var player: CharacterBody2D = get_node("Player")
 
+@onready var hits_label: Label = $Hits
+
 ### === COMPONENT NODES === ###
 @onready var song_entrance_node: Node = $"SongNameEntrance Node"
 @onready var falling_object_node: FallingObject = $"FallingObject Node"
@@ -12,11 +14,18 @@ extends Node2D
 @onready var wide_falling_object_node: WideFallingBody = $"WideFallingObject Node"
 @onready var health_object_spawn_node: HealthObjectSpawn = $"HealthObjectSpawn Node"
 
+var hits: int = 0
 
 func _ready() -> void:
 	camera.global_position = player.global_position
 	camera.zoom = Funcs.__INIT_ZOOMED_CAMERA
 	
+	hits = 0
+	hits_label.text = "Got hit 0 times!"
+
+func hit() -> void:
+	hits += 1
+	hits_label.text = "Got hit %d times!" % hits
 
 #class EventHandler:
 	#var falling_object_node: Node

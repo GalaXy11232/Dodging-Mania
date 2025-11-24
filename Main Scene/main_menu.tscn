@@ -13,4 +13,12 @@ offset_bottom = 660.0
 theme_override_font_sizes/font_size = 60
 text = "Fire emblem"
 
+[node name="Exit" type="Button" parent="."]
+offset_top = 989.0
+offset_right = 270.0
+offset_bottom = 1080.0
+theme_override_font_sizes/font_size = 60
+text = "Exit"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]

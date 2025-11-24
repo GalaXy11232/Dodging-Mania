@@ -4,6 +4,7 @@ class_name HealthNode
 @onready var healthbar: ProgressBar = $Healthbar
 @onready var parent_node: CharacterBody2D = get_parent()
 @onready var parent_sprite: AnimatedSprite2D = parent_node.get_node("Sprite")
+@onready var arena_node: Node2D = parent_node.get_parent() 
 
 @export var max_health: float = 100.0
 @export var hitbox_node: Area2D
@@ -63,7 +64,8 @@ func _area_entered(area: Area2D) -> void:
 
 func damage(value: float) -> void: 
 	health -= value
-
+	arena_node.hit()
+	
 func heal(value: float) -> void:
 	health = Funcs.clampL(health + value, max_health)
 

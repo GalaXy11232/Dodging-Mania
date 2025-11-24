@@ -13,6 +13,16 @@ signal spawn_projectile
 func _on_spawn_projectile(global_pos: Vector2, final_pos: Vector2, wait_time: float, tween_duration: float, rotate_amount: float, fadein_time: float = .2, rotation_linear_type: Tween.TransitionType = Tween.TRANS_BACK, stall_time: float = .075) -> void:
 	fadein_time = min(fadein_time, wait_time)
 	
+	## Configure final_pos
+	var intersection_point: Variant = Geometry2D.line_intersects_line(
+		global_pos, Vector2(final_pos.x - global_pos.x, final_pos.y - global_pos.y),
+		Funcs.__DEFAULT_VIEWPORT_RECT, Vector2.RIGHT
+	) # Can be both <Vector2> and <null>
+	
+	if !( intersection_point == null ): #or global_pos.distance_to(intersection_point) > 10000 ):   ## idfk why this doesnt work
+		final_pos = intersection_point
+	
+	
 	var projectile := PROJECTILE_PATH.instantiate()
 	projectile.set_meta(inflict_damage_metaStrIdentif, false)
 	

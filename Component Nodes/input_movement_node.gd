@@ -13,12 +13,26 @@ const SPRITE_OFFSET_X := 60
 @export var JUMP_VELOCITY: float = -500.0
 
 const move_animation_FPS := 5.0
+const idle_animation_FPS := 7.0
 
 var double_jumped: bool = false
 var sprinting: bool = false
 
+var immobilized: bool = true
+
 func _ready() -> void:
+	sprite.sprite_frames.set_animation_speed("Idle", idle_animation_FPS)
 	sprite.sprite_frames.set_animation_speed("Move", move_animation_FPS)
+	
+	immobilize(false, false)
+
+func immobilize(value: bool = !immobilized, pause_animation: bool = false) -> void:
+	if pause_animation == true:
+		sprite.sprite_frames.set_animation_speed("Idle", 0)
+	else:
+		sprite.sprite_frames.set_animation_speed("Idle", idle_animation_FPS)
+	
+	immobilized = value
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_pressed('sprint'): sprinting = true
@@ -28,26 +42,29 @@ func _physics_process(delta: float) -> void:
 		parent_node.velocity += parent_node.get_gravity() * delta
 
 	# Handle jump.
-	if Input.is_action_just_pressed("jump"):
-		if parent_node.is_on_floor():
-			parent_node.velocity.y = JUMP_VELOCITY
-		else:
-			if not double_jumped:
+	if not immobilized:
+		if Input.is_action_just_pressed("jump"):
+			if parent_node.is_on_floor():
 				parent_node.velocity.y = JUMP_VELOCITY
-				double_jumped = true
-	
-	if parent_node.is_on_floor() and double_jumped: 
-		double_jumped = false
+			else:
+				if not double_jumped:
+					parent_node.velocity.y = JUMP_VELOCITY
+					double_jumped = true
+		
+		if parent_node.is_on_floor() and double_jumped: 
+			double_jumped = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
+	var direction := Input.get_axis("left", "right") * int(!immobilized)
 	var crtspeed: float = SPEED
-	if sprinting: 
-		crtspeed = SPRINTSPEED
-		sprite.sprite_frames.set_animation_speed("Move", move_animation_FPS + 5)
-	else: 
-		sprite.sprite_frames.set_animation_speed("Move", move_animation_FPS)
+	
+	if not immobilized:
+		if sprinting: 
+			crtspeed = SPRINTSPEED
+			sprite.sprite_frames.set_animation_speed("Move", move_animation_FPS + 5)
+		else: 
+			sprite.sprite_frames.set_animation_speed("Move", move_animation_FPS)
 	
 	if direction:
 		sprite.play("Move")

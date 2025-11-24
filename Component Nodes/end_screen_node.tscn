@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://dit3xs6gngj0t"]
+
+[ext_resource type="Script" uid="uid://cdukoq4dj6x53" path="res://Component Nodes/end_screen_node.gd" id="1_j6iub"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ppkdv"]
+font_size = 75
+font_color = Color(0.662745, 0.329412, 1, 1)
+shadow_size = 10
+shadow_color = Color(0.307806, 0.00119345, 0.630134, 0.619608)
+
+[node name="End Screen Node" type="Node"]
+script = ExtResource("1_j6iub")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/margin_left = 60
+theme_override_constants/margin_top = 60
+theme_override_constants/margin_right = 60
+theme_override_constants/margin_bottom = 60
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control/MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Number of hits" type="Label" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Number of hits: bam"
+label_settings = SubResource("LabelSettings_ppkdv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="CanvasLayer/Control/MarginContainer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Total score: bam"
+label_settings = SubResource("LabelSettings_ppkdv")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Main Menu" type="Button" parent="CanvasLayer/Control"]
+offset_left = 60.0
+offset_top = 900.0
+offset_right = 420.0
+offset_bottom = 1020.0
+theme_override_font_sizes/font_size = 50
+text = "Main Menu"
+
+[connection signal="pressed" from="CanvasLayer/Control/Main Menu" to="." method="_on_main_menu_pressed"]

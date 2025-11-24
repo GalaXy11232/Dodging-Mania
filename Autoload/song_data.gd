@@ -74,7 +74,7 @@ var __data_RANDOMPOS_SCROLLING_NODE_WIDE_RL := [
 
 var __data_PlayerPOS_FLYING_PROJ := [
 	[100, Funcs.__DEFAULT_VIEWPORT_RECT.x - 100], [100, 200],
-	__indicator_ACCORDING_TO_PLAYER, Funcs.__DEFAULT_VIEWPORT_RECT.y,
+	__indicator_ACCORDING_TO_PLAYER, __indicator_ACCORDING_TO_PLAYER, #Funcs.__DEFAULT_VIEWPORT_RECT.y,
 	2,
 	2,
 	deg_to_rad(180)]

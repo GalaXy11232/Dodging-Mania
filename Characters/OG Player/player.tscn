@@ -110,6 +110,6 @@ hitbox_node = NodePath("../HitBox")
 [node name="Sprite" type="AnimatedSprite2D" parent="."]
 scale = Vector2(2.5, 2.5)
 sprite_frames = SubResource("SpriteFrames_s1pup")
-animation = &"Move"
+animation = &"Idle"
 autoplay = "Idle"
 offset = Vector2(12, -12)

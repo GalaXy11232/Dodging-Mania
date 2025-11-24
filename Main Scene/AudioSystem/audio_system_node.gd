@@ -2,30 +2,32 @@
 extends Node
 class_name AudioSystem
 
-@onready var main_scene: Node2D = $".."
+@onready var arena_scene: Node2D = $".."
 @onready var audio_stream: AudioStreamPlayer = $AudioStreamPlayer
-@onready var camera: Camera2D = $"../Camera"
-@onready var player: CharacterBody2D = $"../Player"
 
 ### === COMPONENT NODES ===
-@onready var falling_object_node: FallingObject = $"../FallingObject Node"
 @onready var song_entrance_node: Node = $"../SongNameEntrance Node"
+@onready var esc_pause: EscPauseNode = $"../ESC PAUSE"
+@onready var end_screen_node: EndScreenNode = $"../End Screen Node"
 
-const BPM: float = 212.0
-var audio_offset: float = 0.0
-var song_offset: float = 0#72#23.0
+@export var BPM: float = 212.0
+@export var audio_offset: float = 0.0
+@export var song_offset: float = 0#107#72#23.0
 var last_reported_beat: int = 0
 
 func _ready() -> void: 
+	## Setup triggers
+	audio_stream.connect('finished', song_finished)
+	
 	## Camera Entrance
 	await get_tree().create_timer(.5).timeout
-	main_scene.handle_input_array(['camera_starter_zoom', [
+	arena_scene.handle_input_array(['camera_starter_zoom', [
 			Vector2(1, 1),
 			60.0 / BPM,
 			4
 		]])
-	await main_scene.zoomtween.step_finished
-	await main_scene.postween.step_finished
+	await arena_scene.zoomtween.step_finished
+	await arena_scene.postween.step_finished
 	
 	## Start the audio
 	#audio_stream.volume_db = -10
@@ -43,7 +45,7 @@ func _physics_process(_delta):
 
 
 func handle_beat(sec_per_beat: float, beat_no: int) -> void:
-	print('beat ', beat_no)
+	#print('beat ', beat_no)
 	if beat_no <= 1: song_entrance_node.set_song_label('Fire Emblem', 'from Untitled Tag Game, Roblox')
 	if beat_no == 2: song_entrance_node.show_entrance()
 	if beat_no == 16: song_entrance_node.hide_entrance()
@@ -53,8 +55,13 @@ func handle_beat(sec_per_beat: float, beat_no: int) -> void:
 		var iter_count: int = data[len(data) - 1]
 		data.pop_back()
 		
-		main_scene.handle_input_array(data, iter_count)
+		arena_scene.handle_input_array(data, iter_count)
 
+
+func song_finished() -> void:
+	#esc_pause.toggle_pause(true)
+	#esc_pause.toggle_pausability(false)
+	end_screen_node.show_end_screen(arena_scene.hits)
 
 func get_playback_position(audio_player : AudioStreamPlayer) -> float:
 	var time = audio_player.get_playback_position() + AudioServer.get_time_since_last_mix()
