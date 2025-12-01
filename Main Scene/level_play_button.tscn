@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://5rpql355qj0t"]
+
+[ext_resource type="Script" uid="uid://cqno45oahktpq" path="res://Main Scene/level_play_button.gd" id="1_s1rdc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_s1rdc"]
+font_size = 32
+
+[node name="PlayButton" type="Button"]
+offset_right = 270.0
+offset_bottom = 90.0
+theme_override_font_sizes/font_size = 32
+text = "[placeholder]"
+script = ExtResource("1_s1rdc")
+
+[node name="Score Label" type="Label" parent="."]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 270.0
+offset_bottom = 150.0
+text = "Score: 30000"
+label_settings = SubResource("LabelSettings_s1rdc")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -39,7 +39,7 @@ func _physics_process(_delta: float) -> void:
 		print("Stop joc gata")
 		parent_node.queue_free()
 		
-		get_tree().quit()
+		get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
 
 
 func _area_entered(area: Area2D) -> void:

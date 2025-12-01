@@ -5,12 +5,10 @@ const __indicator_ACCORDING_TO_PLAYER := -27
 ## Indicates that the final position {x, y} must be equal to the initial position {x, y}
 const __indicator_FINPOS_INITPOS_EQ := -35
 
-var sec_per_beat := 60.0 / Funcs.__BPM_FireEmblem
-
 var __data_RANDOMPOS_FALLING_NODE := [
 	[100, Funcs.__DEFAULT_VIEWPORT_RECT.x - 100], [100, 200],
 	__indicator_FINPOS_INITPOS_EQ, Funcs.__DEFAULT_VIEWPORT_RECT.y,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	2,
 	2,
 	.3,
@@ -18,7 +16,7 @@ var __data_RANDOMPOS_FALLING_NODE := [
 var __data_PlayerXPOS_FALLING_NODE := [
 	__indicator_ACCORDING_TO_PLAYER, [100, 200],
 	__indicator_FINPOS_INITPOS_EQ, Funcs.__DEFAULT_VIEWPORT_RECT.y,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	2,
 	2,
 	.3,
@@ -26,7 +24,7 @@ var __data_PlayerXPOS_FALLING_NODE := [
 var __data_PlayerYPOS_SCROLLING_NODE_LR := [
 	[100, 200], __indicator_ACCORDING_TO_PLAYER,
 	Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	2,
 	4,
 	.3,
@@ -36,7 +34,7 @@ var __data_PlayerYPOS_SCROLLING_NODE_LR := [
 var __data_PlayerYPOS_SCROLLING_NODE_RL := [
 	[Funcs.__DEFAULT_VIEWPORT_RECT.x - 100, Funcs.__DEFAULT_VIEWPORT_RECT.x - 200], __indicator_ACCORDING_TO_PLAYER,
 	0, __indicator_FINPOS_INITPOS_EQ,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	2,
 	4,
 	.3,
@@ -47,7 +45,7 @@ var __data_PlayerYPOS_SCROLLING_NODE_RL := [
 var __data_RANDOMPOS_FALLING_NODE_WIDE := [
 	[200, Funcs.__DEFAULT_VIEWPORT_RECT.x - 200], 100,
 	__indicator_FINPOS_INITPOS_EQ, Funcs.__DEFAULT_VIEWPORT_RECT.y,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	3,
 	4,
 	.3,
@@ -55,7 +53,7 @@ var __data_RANDOMPOS_FALLING_NODE_WIDE := [
 var __data_RANDOMPOS_SCROLLING_NODE_WIDE_LR := [
 	100, [Funcs.__DEFAULT_VIEWPORT_RECT.y + 250, Funcs.__DEFAULT_VIEWPORT_RECT.y + 125],
 	Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	4,
 	8,
 	.3,
@@ -64,7 +62,7 @@ var __data_RANDOMPOS_SCROLLING_NODE_WIDE_LR := [
 var __data_RANDOMPOS_SCROLLING_NODE_WIDE_RL := [
 	Funcs.__DEFAULT_VIEWPORT_RECT.x - 100, [Funcs.__DEFAULT_VIEWPORT_RECT.y + 250, Funcs.__DEFAULT_VIEWPORT_RECT.y + 125],
 	0, __indicator_FINPOS_INITPOS_EQ,
-	60.0 / Funcs.__BPM_FireEmblem,
+	#60.0 / Funcs.__BPM_FireEmblem,
 	4,
 	8,
 	.3,
@@ -90,7 +88,10 @@ var __data_CAMERA_ZOOM1_050_8s := [1.05, Vector2(0, 0), 8]
 ## The main component of storing action commands according to given beat number;
 ## Each action command is stored as an integer or as an interval;
 ## Each element of the value array is structured as [beat_no / beat_interval, object_data_array]
-var ACTION_DICTIONARY: Dictionary = {
+
+## == FIRE EMBLEM == ##
+const _BPM__FIRE_EMBLEM := 212.0
+var _ACTION_DICTIONARY__FIRE_EMBLEM: Dictionary = {
 	'camera_zoom': [
 		#[7, __data_CAMERA_ZOOM1_025], [15, __data_CAMERA_ZOOM1_025], [23, __data_CAMERA_ZOOM1_025], [31, __data_CAMERA_ZOOM1_025], [39, __data_CAMERA_ZOOM1_025], 
 		[1, __data_CAMERA_ZOOM1_025_4s], [[staticIntInterval.new(7, 39), 8, true], __data_CAMERA_ZOOM1_025_4s],
@@ -109,10 +110,10 @@ var ACTION_DICTIONARY: Dictionary = {
 		[[staticIntInterval.new(1, 40), 4, true], __data_RANDOMPOS_FALLING_NODE],
 		[[staticIntInterval.new(47, 59), 8], randomArrayData.new([__data_PlayerYPOS_SCROLLING_NODE_LR, __data_PlayerYPOS_SCROLLING_NODE_RL])],
 		[[staticIntInterval.new(63, 86), 8], randomArrayData.new([__data_PlayerYPOS_SCROLLING_NODE_LR, __data_PlayerYPOS_SCROLLING_NODE_RL])],
-		[88, [150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 75, Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ, 60.0 / Funcs.__BPM_FireEmblem, 3, 4, .3, .1, deg_to_rad(90)]],
-		[91, [150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 150, Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ, 60.0 / Funcs.__BPM_FireEmblem, 3, 4, .3, .1, deg_to_rad(90)]],
-		[88, [Funcs.__DEFAULT_VIEWPORT_RECT.x - 150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 75, 0, __indicator_FINPOS_INITPOS_EQ, 60.0 / Funcs.__BPM_FireEmblem, 3, 4, .3, .1, deg_to_rad(-90)]],
-		[91, [Funcs.__DEFAULT_VIEWPORT_RECT.x - 150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 150, 0, __indicator_FINPOS_INITPOS_EQ, 60.0 / Funcs.__BPM_FireEmblem, 3, 4, .3, .1, deg_to_rad(-90)]],
+		[88, [150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 75, Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ, 3, 4, .3, .1, deg_to_rad(90)]],
+		[91, [150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 150, Funcs.__DEFAULT_VIEWPORT_RECT.x, __indicator_FINPOS_INITPOS_EQ, 3, 4, .3, .1, deg_to_rad(90)]],
+		[88, [Funcs.__DEFAULT_VIEWPORT_RECT.x - 150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 75, 0, __indicator_FINPOS_INITPOS_EQ, 3, 4, .3, .1, deg_to_rad(-90)]],
+		[91, [Funcs.__DEFAULT_VIEWPORT_RECT.x - 150, Funcs.__DEFAULT_VIEWPORT_RECT.y - 150, 0, __indicator_FINPOS_INITPOS_EQ, 3, 4, .3, .1, deg_to_rad(-90)]],
 		
 		[[staticIntInterval.new(95, 139), 4, true], randomArrayData.new([__data_PlayerYPOS_SCROLLING_NODE_LR, __data_PlayerYPOS_SCROLLING_NODE_RL])],
 		[[staticIntInterval.new(199, 223), 2, true], __data_RANDOMPOS_FALLING_NODE],
@@ -180,10 +181,38 @@ var ACTION_DICTIONARY: Dictionary = {
 	]
 }
 
+## == TUTORIAL == ##
+var _ACTION_DICTIONARY__TUTORIAL: Dictionary = {
+	'flying_projectile': [
+		[[staticIntInterval.new(2, 2), 0.1], __data_PlayerPOS_FLYING_PROJ]
+	],
+	
+	'falling_body': [
+		[[staticIntInterval.new(10, 10), 0.1], __data_RANDOMPOS_FALLING_NODE]
+	],
+	
+	'healing_item': [
+		[[staticIntInterval.new(15, 600), 50, true], __data_APPLE_RANDOMPOS]
+	]
+}
 
-func find_action_by_beat_no(beat_no: int) -> Array:
+func find_action_by_beat_no(song_name: String, beat_no: int) -> Array:
 	var ret_arr: Array = []
-	var values: Array = ACTION_DICTIONARY.values()
+	var values: Array
+	var ACTION_DICTIONARY: Dictionary
+	
+	## Select action dictionary based off song name
+	match song_name.to_lower():
+		'tutorial':
+			values = _ACTION_DICTIONARY__TUTORIAL.values()
+			ACTION_DICTIONARY = _ACTION_DICTIONARY__TUTORIAL
+		'fire emblem': 
+			values = _ACTION_DICTIONARY__FIRE_EMBLEM.values()
+			ACTION_DICTIONARY = _ACTION_DICTIONARY__FIRE_EMBLEM
+		
+		_:
+			values = []
+			ACTION_DICTIONARY = {}
 	
 	for val_arr in values:
 		for elem_arr in val_arr:

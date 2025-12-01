@@ -11,6 +11,9 @@ var inflict_damage_metaStrIdentif: String = "can_inflict_damage"
 var fall_tween: Tween
 
 func _on_spawn_body(global_pos: Vector2, final_pos: Vector2, wait_time: float, tween_duration: float, stall_duration: float = 0, FADEOUT_TIME: float = .4, theta: float = 0) -> void:
+	## Setting boundaries to avoid breaking tweening times due to high bpm
+	tween_duration = max( 1, tween_duration )
+	wait_time = max( 0.3, wait_time )
 	stall_duration = min(wait_time, stall_duration)
 	
 	var body = BODY_PATH.instantiate()

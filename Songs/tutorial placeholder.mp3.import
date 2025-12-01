@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://tav2llrcx2y"
+path="res://.godot/imported/tutorial placeholder.mp3-cd82b349a541629f03abc59919f3bcd6.mp3str"
+
+[deps]
+
+source_file="res://Songs/tutorial placeholder.mp3"
+dest_files=["res://.godot/imported/tutorial placeholder.mp3-cd82b349a541629f03abc59919f3bcd6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

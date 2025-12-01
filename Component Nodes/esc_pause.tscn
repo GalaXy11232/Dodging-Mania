@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpu2m1tm171md"]
+[gd_scene load_steps=4 format=3 uid="uid://dpu2m1tm171md"]
 
 [ext_resource type="Script" uid="uid://bapks6ei05y6h" path="res://Component Nodes/esc_pause.gd" id="1_m7eao"]
+[ext_resource type="PackedScene" uid="uid://ldjb0hn0jswp" path="res://Options/volume_bar.tscn" id="2_hl3ex"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hl3ex"]
 font_size = 120
@@ -13,7 +14,6 @@ shadow_color = Color(0, 0.462745, 0.6, 1)
 script = ExtResource("1_m7eao")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 offset_left = 90.0
@@ -36,19 +36,46 @@ autowrap_mode = 2
 
 [node name="Resume" type="Button" parent="CanvasLayer"]
 offset_left = 240.0
-offset_top = 630.0
+offset_top = 390.0
 offset_right = 600.0
-offset_bottom = 750.0
+offset_bottom = 510.0
 theme_override_font_sizes/font_size = 50
 text = "Resume"
 
 [node name="Main Menu" type="Button" parent="CanvasLayer"]
-offset_left = 1320.0
-offset_top = 630.0
-offset_right = 1680.0
-offset_bottom = 750.0
+offset_left = 1260.0
+offset_top = 390.0
+offset_right = 1620.0
+offset_bottom = 510.0
 theme_override_font_sizes/font_size = 50
 text = "Main Menu"
+
+[node name="MasterVolume" parent="CanvasLayer" instance=ExtResource("2_hl3ex")]
+unique_name_in_owner = true
+offset_left = 810.0
+offset_top = 750.0
+offset_right = 1110.0
+offset_bottom = 766.0
+bus_name = "Master"
+volume_label_name = "Master Volume"
+
+[node name="MusicVolume" parent="CanvasLayer" instance=ExtResource("2_hl3ex")]
+unique_name_in_owner = true
+offset_left = 1200.0
+offset_top = 840.0
+offset_right = 1500.0
+offset_bottom = 856.0
+bus_name = "Music"
+volume_label_name = "Music Volume"
+
+[node name="SFXVolume" parent="CanvasLayer" instance=ExtResource("2_hl3ex")]
+unique_name_in_owner = true
+offset_left = 420.0
+offset_top = 840.0
+offset_right = 720.0
+offset_bottom = 856.0
+bus_name = "SFX"
+volume_label_name = "SFX Volume"
 
 [connection signal="pressed" from="CanvasLayer/Resume" to="." method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/Main Menu" to="." method="_on_main_menu_pressed"]

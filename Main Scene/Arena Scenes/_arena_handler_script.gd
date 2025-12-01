@@ -1,5 +1,9 @@
 extends Node2D
 
+const _SONG__FIRE_EMBLEM = preload("res://Songs/fire_emblem_-_untitled_tag_game_KLICKAUD.mp3")
+const _SONG__TUTORIAL_PLACEHOLDER = preload("res://Songs/tutorial placeholder.mp3")
+
+@onready var audio_system_node: AudioSystem = $"AudioSystem Node"
 @onready var audio_stream_player: AudioStreamPlayer = $"AudioSystem Node/AudioStreamPlayer"
 
 @onready var camera: Camera2D = $Camera
@@ -15,6 +19,7 @@ extends Node2D
 @onready var health_object_spawn_node: HealthObjectSpawn = $"HealthObjectSpawn Node"
 
 var hits: int = 0
+var sec_per_beat: float
 
 func _ready() -> void:
 	camera.global_position = player.global_position
@@ -22,6 +27,24 @@ func _ready() -> void:
 	
 	hits = 0
 	hits_label.text = "Got hit 0 times!"
+	
+	## Setup sec_per_beat based on song name
+	match Funcs.track_name.to_lower():
+		'tutorial':
+			sec_per_beat = 60.0 / Funcs.__BPM_Tutorial
+			audio_system_node.track_name = 'Tutorial'
+			audio_system_node.BPM = Funcs.__BPM_Tutorial
+			audio_stream_player.stream = _SONG__TUTORIAL_PLACEHOLDER
+			
+		'fire emblem': 
+			sec_per_beat = 60.0 / Funcs.__BPM_FireEmblem
+			audio_system_node.track_name = "Fire Emblem"
+			audio_system_node.BPM = Funcs.__BPM_FireEmblem
+			audio_stream_player.stream = _SONG__FIRE_EMBLEM
+		_: 
+			sec_per_beat = 0 # stop joc
+	
+	audio_system_node.emit_signal("ready")
 
 func hit() -> void:
 	hits += 1
@@ -70,12 +93,12 @@ var postween: Tween
 ## data_array: [zoomin_val, sec_per_beat, duration_multiplier, reversed = false]
 func camera_starter_zoom(data_array: Array) -> void:
 	var zoomin_value: Vector2 = data_array[0]
-	var sec_per_beat: float = data_array[1]
-	var duration_multiplier: float = data_array[2]
+	#var sec_per_beat: float = data_array[1]
+	var duration_multiplier: float = data_array[1]
 	var reversed: bool = false
 	
 	var init_zoom = camera.zoom
-	if len(data_array) >= 4: reversed = data_array[3]
+	if len(data_array) >= 3: reversed = data_array[2]
 	
 	if reversed: 
 		var tmp = zoomin_value
@@ -96,7 +119,7 @@ func camera_starter_zoom(data_array: Array) -> void:
 	postween.tween_property(camera, 'global_position', screen_center, sec_per_beat * duration_multiplier)
 
 func camera_zoom(data_array: Array) -> void:
-	var sec_per_beat := 60.0 / Funcs.__BPM_FireEmblem
+	#var sec_per_beat := 60.0 / Funcs.__BPM_FireEmblem
 	
 	var zoomin_value: float = data_array[0]
 	var pos_offset: Vector2 = data_array[1]
@@ -112,7 +135,7 @@ func camera_zoom(data_array: Array) -> void:
 	await zoomtween.step_finished
 
 func healing_item(data_array: Array, iter_count: int = 1) -> void:
-	var sec_per_beat: float = 60 / Funcs.__BPM_FireEmblem
+	#var sec_per_beat: float = 60 / Funcs.__BPM_FireEmblem
 	for i in range(iter_count):
 		var identifier: String = data_array[0]
 		var posx = data_array[1]
@@ -150,9 +173,9 @@ func falling_body(data_array: Array, iter_count: int = 1) -> void:
 		var posy = data_array[1]
 		var finx = data_array[2]
 		var finy = data_array[3]
-		var sec_per_beat: float = data_array[4]
-		var fadein_multip: float = data_array[5]
-		var move_multip: float = data_array[6]
+		#var sec_per_beat: float = data_array[4]
+		var fadein_multip: float = data_array[4]
+		var move_multip: float = data_array[5]
 		var stall_duration: float = 0
 		var fadeout_duration: float = .4
 		var rotation_angle: float = 0
@@ -186,14 +209,14 @@ func falling_body(data_array: Array, iter_count: int = 1) -> void:
 		if finx == SongData.__indicator_ACCORDING_TO_PLAYER: finx = player.global_position.x
 		if finy == SongData.__indicator_ACCORDING_TO_PLAYER: finy = player.global_position.y
 		
-		if len(data_array) >= 8: 
-			stall_duration = data_array[7]
+		if len(data_array) >= 7: 
+			stall_duration = data_array[6]
+		if len(data_array) >= 8:
+			fadeout_duration = data_array[7]
 		if len(data_array) >= 9:
-			fadeout_duration = data_array[8]
+			rotation_angle = data_array[8]
 		if len(data_array) >= 10:
-			rotation_angle = data_array[9]
-		if len(data_array) >= 11:
-			identifier = data_array[10]
+			identifier = data_array[9]
 		
 		falling_object_node.emit_signal(
 				'spawn_body', 
@@ -216,9 +239,9 @@ func wide_falling_body(data_array: Array, iter_count: int = 1) -> void:
 		var posy = data_array[1]
 		var finx = data_array[2]
 		var finy = data_array[3]
-		var sec_per_beat: float = data_array[4]
-		var fadein_multip: float = data_array[5]
-		var move_multip: float = data_array[6]
+		#var sec_per_beat: float = data_array[4]
+		var fadein_multip: float = data_array[4]
+		var move_multip: float = data_array[5]
 		var stall_duration: float = 0
 		var fadeout_duration: float = .4
 		var rotation_angle: float = 0
@@ -251,12 +274,12 @@ func wide_falling_body(data_array: Array, iter_count: int = 1) -> void:
 		if finx == SongData.__indicator_ACCORDING_TO_PLAYER: finx = player.global_position.x
 		if finy == SongData.__indicator_ACCORDING_TO_PLAYER: finy = player.global_position.y
 		
-		if len(data_array) >= 8: 
-			stall_duration = data_array[7]
+		if len(data_array) >= 7: 
+			stall_duration = data_array[6]
+		if len(data_array) >= 8:
+			fadeout_duration = data_array[7]
 		if len(data_array) >= 9:
-			fadeout_duration = data_array[8]
-		if len(data_array) >= 10:
-			rotation_angle = data_array[9]
+			rotation_angle = data_array[8]
 		
 		wide_falling_object_node.emit_signal(
 				'spawn_body', 
@@ -275,7 +298,7 @@ func wide_falling_body(data_array: Array, iter_count: int = 1) -> void:
 ## data_array: [posx, posy, finx, finy, Wait_time_multip, tween_duration_multip, rotate_amount, fadein_time: float = .2, rotation_linear_type: Tween.TransitionType = Tween.TRANS_BACK]
 func flying_projectile(data_array: Array, iter_count: int = 1) -> void:
 	for i in range(iter_count):
-		var sec_per_beat := 60.0 / Funcs.__BPM_FireEmblem
+		#var sec_per_beat := 60.0 / Funcs.__BPM_FireEmblem
 		
 		var posx = data_array[0]
 		var posy = data_array[1]
@@ -336,6 +359,3 @@ func flying_projectile(data_array: Array, iter_count: int = 1) -> void:
 		)
 		
 		await get_tree().create_timer(sec_per_beat / iter_count).timeout
-
-func _on_button_pressed() -> void:
-	audio_stream_player.volume_db = -100

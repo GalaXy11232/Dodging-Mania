@@ -10,8 +10,11 @@ var inflict_damage_metaStrIdentif: String = "can_inflict_damage"
 
 signal spawn_projectile
 
-func _on_spawn_projectile(global_pos: Vector2, final_pos: Vector2, wait_time: float, tween_duration: float, rotate_amount: float, fadein_time: float = .2, rotation_linear_type: Tween.TransitionType = Tween.TRANS_BACK, stall_time: float = .075) -> void:
-	fadein_time = min(fadein_time, wait_time)
+func _on_spawn_projectile(global_pos: Vector2, final_pos: Vector2, wait_time: float, tween_duration: float, rotate_amount: float, fadein_time: float = .2, rotation_linear_type: Tween.TransitionType = Tween.TRANS_BACK, stall_time: float = .1) -> void:
+	## Setting boundaries to avoid breaking tweening times due to high bpm
+	wait_time = max( 0.2, wait_time )
+	fadein_time = max( 0.24 , min(fadein_time, wait_time) )
+	tween_duration = max( 0.6 , tween_duration )
 	
 	## Configure final_pos
 	var intersection_point: Variant = Geometry2D.line_intersects_line(
@@ -39,13 +42,13 @@ func _on_spawn_projectile(global_pos: Vector2, final_pos: Vector2, wait_time: fl
 	
 	## Play spawn sound
 	if projectile.has_node("SFX_appear"): 
-		projectile.get_node("SFX_appear").volume_db = -12#-20
+		#projectile.get_node("SFX_appear").volume_db = -12#-20
 		projectile.get_node("SFX_appear").play()
 	
 	var fadeintwn := create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_LINEAR).set_parallel(true)
 	var rotatetwn := create_tween().set_ease(Tween.EASE_OUT).set_trans(rotation_linear_type).set_parallel(true)
 	fadeintwn.tween_property(projectile_sprite, 'modulate:a', 1, fadein_time)
-	rotatetwn.tween_property(projectile, 'rotation', init_rotation, wait_time - stall_time)
+	rotatetwn.tween_property(projectile, 'rotation', init_rotation, max( fadein_time , wait_time - stall_time ))
 	
 	await fadeintwn.step_finished
 	await rotatetwn.step_finished

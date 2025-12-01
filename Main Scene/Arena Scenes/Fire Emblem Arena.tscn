@@ -1,17 +1,16 @@
-[gd_scene load_steps=18 format=4 uid="uid://slh6jbt8808u"]
+[gd_scene load_steps=17 format=4 uid="uid://slh6jbt8808u"]
 
-[ext_resource type="Script" uid="uid://bm7tycbdasnb5" path="res://Main Scene/main_scene.gd" id="1_14j26"]
-[ext_resource type="Script" uid="uid://b6l2o4ax0gwfc" path="res://Main Scene/AudioSystem/audio_system_node.gd" id="1_el5ou"]
-[ext_resource type="AudioStream" uid="uid://73qj8sq3c8wk" path="res://Songs/fire_emblem_-_untitled_tag_game_KLICKAUD.mp3" id="1_jf6x8"]
-[ext_resource type="PackedScene" uid="uid://dpu2m1tm171md" path="res://Component Nodes/esc_pause.tscn" id="2_qvcfu"]
-[ext_resource type="PackedScene" uid="uid://dit3xs6gngj0t" path="res://Component Nodes/end_screen_node.tscn" id="3_1idbs"]
-[ext_resource type="PackedScene" uid="uid://b76s8clr475yo" path="res://Characters/OG Player/player.tscn" id="3_rpaqd"]
-[ext_resource type="PackedScene" uid="uid://dgmu7de0qursl" path="res://Component Nodes/falling_object_node.tscn" id="4_i0gsd"]
-[ext_resource type="PackedScene" uid="uid://crym5ugucb6uc" path="res://Component Nodes/song_name_entrance_node.tscn" id="6_ei6di"]
-[ext_resource type="PackedScene" uid="uid://tr6r6mj6e056" path="res://Component Nodes/wide_falling_object_node.tscn" id="6_r5cmb"]
-[ext_resource type="PackedScene" uid="uid://3w0c8qdvhod5" path="res://Component Nodes/flying_projectile_node.tscn" id="7_vh0w5"]
-[ext_resource type="Texture2D" uid="uid://cie4hy7nruevq" path="res://Images/Tileset.png" id="9_ex6ca"]
-[ext_resource type="PackedScene" uid="uid://cmff7m6w73mhd" path="res://Component Nodes/health_object_spawn_node.tscn" id="9_u0iv6"]
+[ext_resource type="Script" uid="uid://bm7tycbdasnb5" path="res://Main Scene/Arena Scenes/_arena_handler_script.gd" id="1_1xx3m"]
+[ext_resource type="PackedScene" uid="uid://dpu2m1tm171md" path="res://Component Nodes/esc_pause.tscn" id="2_b8jwa"]
+[ext_resource type="PackedScene" uid="uid://dit3xs6gngj0t" path="res://Component Nodes/end_screen_node.tscn" id="3_owuxo"]
+[ext_resource type="PackedScene" uid="uid://b76s8clr475yo" path="res://Characters/OG Player/player.tscn" id="4_b1cpc"]
+[ext_resource type="Script" uid="uid://b6l2o4ax0gwfc" path="res://Main Scene/AudioSystem/audio_system_node.gd" id="5_txpwi"]
+[ext_resource type="PackedScene" uid="uid://dgmu7de0qursl" path="res://Component Nodes/falling_object_node.tscn" id="6_vhqey"]
+[ext_resource type="PackedScene" uid="uid://tr6r6mj6e056" path="res://Component Nodes/wide_falling_object_node.tscn" id="7_6vlwy"]
+[ext_resource type="PackedScene" uid="uid://crym5ugucb6uc" path="res://Component Nodes/song_name_entrance_node.tscn" id="8_qxu0q"]
+[ext_resource type="PackedScene" uid="uid://3w0c8qdvhod5" path="res://Component Nodes/flying_projectile_node.tscn" id="9_crxva"]
+[ext_resource type="PackedScene" uid="uid://cmff7m6w73mhd" path="res://Component Nodes/health_object_spawn_node.tscn" id="10_gv2h8"]
+[ext_resource type="Texture2D" uid="uid://cie4hy7nruevq" path="res://Images/Tileset.png" id="11_17okm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qvcfu"]
 font_size = 45
@@ -24,8 +23,8 @@ size = Vector2(2040, 354)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rpaqd"]
 size = Vector2(1200, 59.9957)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ex6ca"]
-texture = ExtResource("9_ex6ca")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_p37de"]
+texture = ExtResource("11_17okm")
 texture_region_size = Vector2i(128, 128)
 5:12/0 = 0
 6:12/0 = 0
@@ -171,10 +170,10 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_u0iv6"]
 tile_size = Vector2i(64, 64)
-sources/0 = SubResource("TileSetAtlasSource_ex6ca")
+sources/0 = SubResource("TileSetAtlasSource_p37de")
 
-[node name="Level Arena" type="Node2D"]
-script = ExtResource("1_14j26")
+[node name="Fire Emblem Arena" type="Node2D"]
+script = ExtResource("1_1xx3m")
 
 [node name="Hits" type="Label" parent="."]
 offset_left = 1500.0
@@ -185,21 +184,22 @@ label_settings = SubResource("LabelSettings_qvcfu")
 vertical_alignment = 2
 autowrap_mode = 3
 
-[node name="ESC PAUSE" parent="." instance=ExtResource("2_qvcfu")]
+[node name="ESC PAUSE" parent="." instance=ExtResource("2_b8jwa")]
 
-[node name="End Screen Node" parent="." instance=ExtResource("3_1idbs")]
+[node name="End Screen Node" parent="." instance=ExtResource("3_owuxo")]
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(960, 540)
 
-[node name="Player" parent="." instance=ExtResource("3_rpaqd")]
+[node name="Player" parent="." instance=ExtResource("4_b1cpc")]
 position = Vector2(990, 1025)
 
 [node name="AudioSystem Node" type="Node" parent="."]
-script = ExtResource("1_el5ou")
+script = ExtResource("5_txpwi")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioSystem Node"]
-stream = ExtResource("1_jf6x8")
+volume_db = 5.0
+bus = &"Music"
 
 [node name="Solid Objects" type="Node2D" parent="."]
 
@@ -223,25 +223,16 @@ rotation = 1.57079
 position = Vector2(540.012, -1949.99)
 shape = SubResource("RectangleShape2D_rpaqd")
 
-[node name="FallingObject Node" parent="." instance=ExtResource("4_i0gsd")]
+[node name="FallingObject Node" parent="." instance=ExtResource("6_vhqey")]
 
-[node name="WideFallingObject Node" parent="." instance=ExtResource("6_r5cmb")]
+[node name="WideFallingObject Node" parent="." instance=ExtResource("7_6vlwy")]
 
-[node name="SongNameEntrance Node" parent="." instance=ExtResource("6_ei6di")]
+[node name="SongNameEntrance Node" parent="." instance=ExtResource("8_qxu0q")]
 
-[node name="FlyingProjectile Node" parent="." instance=ExtResource("7_vh0w5")]
+[node name="FlyingProjectile Node" parent="." instance=ExtResource("9_crxva")]
 
-[node name="HealthObjectSpawn Node" parent="." instance=ExtResource("9_u0iv6")]
-
-[node name="Button" type="Button" parent="."]
-offset_left = 1680.0
-offset_top = 210.0
-offset_right = 1740.0
-offset_bottom = 241.0
-text = "MUTE"
+[node name="HealthObjectSpawn Node" parent="." instance=ExtResource("10_gv2h8")]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAFABEAAAAHAAwAAAAGABEAAAAHAAwAAAAHABEAAAAJAAwAAAAIABEAAAAFAAwAAAAJABEAAAAFAAwAAAAKABEAAAAHAAwAAAALABEAAAAJAAwAAAAMABEAAAAIAAwAAAANABEAAAAHAAwAAAAOABEAAAAFAAwAAAAPABEAAAAGAAwAAAAAABEAAAAHAAwAAAABABEAAAAJAAwAAAACABEAAAAIAAwAAAADABEAAAAFAAwAAAAEABEAAAAIAAwAAAAQABEAAAAFAAwAAAARABEAAAAGAAwAAAASABEAAAAJAAwAAAATABEAAAAHAAwAAAAUABEAAAAGAAwAAAAVABEAAAAIAAwAAAAWABEAAAAIAAwAAAAXABEAAAAIAAwAAAAYABEAAAAGAAwAAAAZABEAAAAHAAwAAAAaABEAAAAIAAwAAAAbABEAAAAIAAwAAAAcABEAAAAGAAwAAAAdABEAAAAHAAwAAAAAABIAAAABAAsAAAAAABMAAAAGAAsAAAAAABQAAAADAAsAAAAAABUAAAACAAsAAAAAABYAAAABAAsAAAABABIAAAABAAsAAAABABMAAAAFAAsAAAABABQAAAAEAAsAAAABABUAAAAEAAsAAAABABYAAAAEAAsAAAACABIAAAAHAAsAAAACABMAAAADAAsAAAACABQAAAAGAAsAAAACABUAAAAAAAsAAAACABYAAAAFAAsAAAADABIAAAAFAAsAAAADABMAAAAJAAsAAAADABQAAAAGAAsAAAADABUAAAAGAAsAAAADABYAAAADAAsAAAAEABIAAAAJAAsAAAAEABMAAAAEAAsAAAAEABQAAAAGAAsAAAAEABUAAAAIAAsAAAAEABYAAAAHAAsAAAAFABIAAAABAAsAAAAFABMAAAABAAsAAAAFABQAAAAIAAsAAAAFABUAAAAEAAsAAAAFABYAAAAGAAsAAAAGABIAAAAAAAsAAAAGABMAAAAGAAsAAAAGABQAAAACAAsAAAAGABUAAAADAAsAAAAGABYAAAACAAsAAAAHABIAAAAHAAsAAAAHABMAAAAGAAsAAAAHABQAAAAHAAsAAAAHABUAAAABAAsAAAAHABYAAAADAAsAAAAIABIAAAAHAAsAAAAIABMAAAABAAsAAAAIABQAAAAGAAsAAAAIABUAAAAIAAsAAAAIABYAAAAEAAsAAAAJABIAAAACAAsAAAAJABMAAAAFAAsAAAAJABQAAAAGAAsAAAAJABUAAAADAAsAAAAJABYAAAAIAAsAAAAKABIAAAACAAsAAAAKABMAAAADAAsAAAAKABQAAAAFAAsAAAAKABUAAAACAAsAAAAKABYAAAAJAAsAAAALABIAAAAIAAsAAAALABMAAAAEAAsAAAALABQAAAADAAsAAAALABUAAAACAAsAAAALABYAAAADAAsAAAAMABIAAAADAAsAAAAMABMAAAAHAAsAAAAMABQAAAAFAAsAAAAMABUAAAAFAAsAAAAMABYAAAAAAAsAAAANABIAAAAIAAsAAAANABMAAAAAAAsAAAANABQAAAAEAAsAAAANABUAAAAGAAsAAAANABYAAAAAAAsAAAAOABIAAAABAAsAAAAOABMAAAAEAAsAAAAOABQAAAAGAAsAAAAOABUAAAACAAsAAAAOABYAAAACAAsAAAAPABIAAAAJAAsAAAAPABMAAAAFAAsAAAAPABQAAAAGAAsAAAAPABUAAAAEAAsAAAAPABYAAAAGAAsAAAAQABIAAAAEAAsAAAAQABMAAAACAAsAAAAQABQAAAADAAsAAAAQABUAAAAHAAsAAAAQABYAAAABAAsAAAARABIAAAAIAAsAAAARABMAAAAJAAsAAAARABQAAAABAAsAAAARABUAAAAJAAsAAAARABYAAAAEAAsAAAASABIAAAAIAAsAAAASABMAAAAJAAsAAAASABQAAAAEAAsAAAASABUAAAABAAsAAAASABYAAAABAAsAAAATABIAAAAGAAsAAAATABMAAAADAAsAAAATABQAAAAGAAsAAAATABUAAAAJAAsAAAATABYAAAAJAAsAAAAUABIAAAAIAAsAAAAUABMAAAAIAAsAAAAUABQAAAAGAAsAAAAUABUAAAABAAsAAAAUABYAAAAHAAsAAAAVABIAAAAAAAsAAAAVABMAAAAHAAsAAAAVABQAAAAEAAsAAAAVABUAAAACAAsAAAAVABYAAAAFAAsAAAAWABIAAAACAAsAAAAWABMAAAADAAsAAAAWABQAAAAAAAsAAAAWABUAAAABAAsAAAAWABYAAAAEAAsAAAAXABIAAAAFAAsAAAAXABMAAAAAAAsAAAAXABQAAAADAAsAAAAXABUAAAADAAsAAAAXABYAAAAJAAsAAAAYABIAAAAEAAsAAAAYABMAAAABAAsAAAAYABQAAAAIAAsAAAAYABUAAAAJAAsAAAAYABYAAAADAAsAAAAZABIAAAAEAAsAAAAZABMAAAAIAAsAAAAZABQAAAABAAsAAAAZABUAAAAAAAsAAAAZABYAAAAEAAsAAAAaABIAAAAIAAsAAAAaABMAAAAIAAsAAAAaABQAAAAGAAsAAAAaABUAAAADAAsAAAAaABYAAAAHAAsAAAAbABIAAAAIAAsAAAAbABMAAAAJAAsAAAAbABQAAAAFAAsAAAAbABUAAAAHAAsAAAAbABYAAAAFAAsAAAAcABIAAAAGAAsAAAAcABMAAAAAAAsAAAAcABQAAAAFAAsAAAAcABUAAAAEAAsAAAAcABYAAAADAAsAAAAdABIAAAAHAAsAAAAdABMAAAAFAAsAAAAdABQAAAAHAAsAAAAdABUAAAAFAAsAAAAdABYAAAAFAAsAAAA=")
 tile_set = SubResource("TileSet_u0iv6")
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://ldjb0hn0jswp"]
+
+[ext_resource type="Script" uid="uid://b57xntt25i31n" path="res://Options/volume_bar.gd" id="1_dbfo2"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dbfo2"]
+font_size = 25
+shadow_size = 5
+shadow_color = Color(0.239216, 0, 0.92549, 0.623529)
+
+[node name="VolumeBar" type="HSlider"]
+offset_right = 270.0
+offset_bottom = 16.0
+max_value = 1.0
+step = 0.001
+script = ExtResource("1_dbfo2")
+
+[node name="LabelName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+offset_top = -60.0
+offset_right = 270.0
+grow_horizontal = 2
+text = "[Placeholder] Volume"
+label_settings = SubResource("LabelSettings_dbfo2")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

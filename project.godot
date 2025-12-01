@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Funcs="*res://Autoload/Funcs.gd"
 SongData="*res://Autoload/song_data.gd"
+SaveData="*res://Autoload/save_data_funcs.gd"
 
 [display]
 
@@ -39,6 +40,7 @@ folder_colors={
 "res://Component Nodes/": "red",
 "res://Images/": "blue",
 "res://Main Scene/": "purple",
+"res://Options/": "gray",
 "res://Songs/": "pink",
 "res://Sounds/": "pink",
 "res://addons/": "gray"

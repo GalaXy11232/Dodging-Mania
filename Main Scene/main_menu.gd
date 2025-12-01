@@ -1,19 +1,30 @@
 extends Node2D
 
+@onready var camera: Camera2D = $Camera
 
-# Called when the node enters the scene tree for the first time.
+@onready var master_volume_label: HSlider = %MasterVolume
+@onready var music_volume_label: HSlider = %MusicVolume
+@onready var sfx_volume_label: HSlider = %SFXVolume
+
+## Margin offset to avoid visual errors when moving camera positions
+const MARGIN_VECTOR := Vector2(30, 30)
+
 func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
-
-
-func _on_button_pressed() -> void:
-	get_tree().change_scene_to_file("res://Main Scene/main_scene.tscn")
-
+	## Avoiding possible editor modifications
+	camera.offset = Vector2.ZERO
+	$ignore.hide()
+	
+	SaveData.load_options_data()
+	master_volume_label.update_label_to_volume()
+	music_volume_label.update_label_to_volume()
+	sfx_volume_label.update_label_to_volume()
 
 func _on_exit_pressed() -> void:
-	get_tree().quit()
+	get_tree().root.propagate_notification(NOTIFICATION_WM_CLOSE_REQUEST)
+
+
+func _go_to_options() -> void:
+	camera.position = (Funcs.__DEFAULT_VIEWPORT_RECT + MARGIN_VECTOR) * Vector2.RIGHT
+
+func _go_to_menu() -> void:
+	camera.position = Vector2.ZERO

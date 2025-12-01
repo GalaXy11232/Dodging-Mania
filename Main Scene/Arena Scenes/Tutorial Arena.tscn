@@ -1,0 +1,99 @@
+[gd_scene load_steps=16 format=3 uid="uid://dpu77fgv75hql"]
+
+[ext_resource type="Script" uid="uid://bm7tycbdasnb5" path="res://Main Scene/Arena Scenes/_arena_handler_script.gd" id="1_dhhtl"]
+[ext_resource type="PackedScene" uid="uid://dpu2m1tm171md" path="res://Component Nodes/esc_pause.tscn" id="2_hpmi6"]
+[ext_resource type="PackedScene" uid="uid://dit3xs6gngj0t" path="res://Component Nodes/end_screen_node.tscn" id="3_bwoie"]
+[ext_resource type="PackedScene" uid="uid://b76s8clr475yo" path="res://Characters/OG Player/player.tscn" id="4_mg5bo"]
+[ext_resource type="Script" uid="uid://b6l2o4ax0gwfc" path="res://Main Scene/AudioSystem/audio_system_node.gd" id="5_icwuo"]
+[ext_resource type="Texture2D" uid="uid://5bx0lcbyqr25" path="res://icon.svg" id="6_123oh"]
+[ext_resource type="PackedScene" uid="uid://dgmu7de0qursl" path="res://Component Nodes/falling_object_node.tscn" id="7_7y4x0"]
+[ext_resource type="PackedScene" uid="uid://tr6r6mj6e056" path="res://Component Nodes/wide_falling_object_node.tscn" id="8_jdp6v"]
+[ext_resource type="PackedScene" uid="uid://crym5ugucb6uc" path="res://Component Nodes/song_name_entrance_node.tscn" id="9_uq5uc"]
+[ext_resource type="PackedScene" uid="uid://3w0c8qdvhod5" path="res://Component Nodes/flying_projectile_node.tscn" id="10_clrpn"]
+[ext_resource type="PackedScene" uid="uid://cmff7m6w73mhd" path="res://Component Nodes/health_object_spawn_node.tscn" id="11_edxk6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4ejov"]
+font_size = 45
+shadow_size = 10
+shadow_color = Color(0, 0, 0, 0.411765)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s0tmj"]
+size = Vector2(2040, 354)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8ayf"]
+size = Vector2(120, 297)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f323e"]
+size = Vector2(1200, 59.9957)
+
+[node name="Tutorial Arena" type="Node2D"]
+script = ExtResource("1_dhhtl")
+
+[node name="Hits" type="Label" parent="."]
+offset_left = 1500.0
+offset_right = 1920.0
+offset_bottom = 120.0
+text = "Got hit 0 times!"
+label_settings = SubResource("LabelSettings_4ejov")
+vertical_alignment = 2
+autowrap_mode = 3
+
+[node name="ESC PAUSE" parent="." instance=ExtResource("2_hpmi6")]
+
+[node name="End Screen Node" parent="." instance=ExtResource("3_bwoie")]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(960, 540)
+
+[node name="Player" parent="." instance=ExtResource("4_mg5bo")]
+position = Vector2(990, 1025)
+
+[node name="AudioSystem Node" type="Node" parent="."]
+script = ExtResource("5_icwuo")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AudioSystem Node"]
+volume_db = 5.0
+bus = &"Music"
+
+[node name="Solid Objects" type="Node2D" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Solid Objects"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Objects/Ground"]
+position = Vector2(960, 1233)
+shape = SubResource("RectangleShape2D_s0tmj")
+
+[node name="Ground2" type="StaticBody2D" parent="Solid Objects"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Objects/Ground2"]
+position = Vector2(1170, 1078.5)
+shape = SubResource("RectangleShape2D_i8ayf")
+
+[node name="Sprite2D" type="Sprite2D" parent="Solid Objects/Ground2"]
+position = Vector2(1170, 1020)
+scale = Vector2(0.9375, 1.40625)
+texture = ExtResource("6_123oh")
+
+[node name="Wall" type="StaticBody2D" parent="Solid Objects"]
+rotation = 1.57079
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Objects/Wall"]
+position = Vector2(540, 30.0034)
+shape = SubResource("RectangleShape2D_f323e")
+
+[node name="Wall2" type="StaticBody2D" parent="Solid Objects"]
+rotation = 1.57079
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Solid Objects/Wall2"]
+position = Vector2(540.012, -1949.99)
+shape = SubResource("RectangleShape2D_f323e")
+
+[node name="FallingObject Node" parent="." instance=ExtResource("7_7y4x0")]
+
+[node name="WideFallingObject Node" parent="." instance=ExtResource("8_jdp6v")]
+
+[node name="SongNameEntrance Node" parent="." instance=ExtResource("9_uq5uc")]
+
+[node name="FlyingProjectile Node" parent="." instance=ExtResource("10_clrpn")]
+
+[node name="HealthObjectSpawn Node" parent="." instance=ExtResource("11_edxk6")]
